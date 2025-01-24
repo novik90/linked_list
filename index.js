@@ -1,7 +1,4 @@
 import LinkedList from "./LinkedList.js";
-/** 
- * TESTS
- */
 
 let list = new LinkedList();
 list.addFirst("1");
