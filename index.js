@@ -12,6 +12,46 @@ class LinkedList {
     this.length = 0;
   }
 
+  /**
+   * Add value into list.
+   * @param {any} value Any value.
+   * @param {boolean} [options=false] `false` (default) - insert into tail, `true` - insert into head.
+   */
+  add(value, options = false) {
+
+    if (value === undefined) {
+      throw new Error("Value is required.");
+    }
+
+    let node = new Node(value);
+
+    if (this.length === 0) {
+      this.head = node;
+    } else if (options) {
+      /*
+       * insert into head
+       */
+      node.next = this.head;
+      node.next.prev = node;
+      this.head = node;
+    } else {
+      /*
+       * insert into tail
+       */
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = node;
+      current.next.prev = current;
+    }
+
+    /*
+     * increment length
+     */
+    this.length++;
+  }
+
   addLast(value) {
     //Создаю новую ноду
     let node = new Node(value);
