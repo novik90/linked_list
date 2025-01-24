@@ -6,17 +6,27 @@ class Node {
   }
 }
 
+// TODO: переписать на TS
 class LinkedList {
-  constructor() {
-    this.head = null;
-    this.length = 0;
+  // TODO: поизучать конструкторы и свойства классов
+
+  head = null;
+  length = 0;
+
+  constructor(...nodes) {
+    for (const node of nodes) {
+      this.addLast(node);
+    }
   }
 
   addLast(value) {
-    //Создаю новую ноду
+    // Создаю новую ноду
+    // TODO: почему лет. Я создаю ноду и больше ссылку на нее менять не буду
     let node = new Node(value);
 
-    //Если лист пустой
+    // Если лист пустой
+    // TODO: Может ориентироваться на head?
+    // TODO: инкапсулировать length
     if (this.length === 0) {
       this.head = node;
     } else {
@@ -28,19 +38,21 @@ class LinkedList {
       }
 
       current.next = node;
+
       // добавляю связть назад последней ноде
       current.next.prev = current;
     }
 
-    //увеличиваем длину листа
+    // увеличиваем длину листа
     this.length++;
   }
 
   addFirst(value) {
-    //Создаю новую ноду
+    // Создаю новую ноду
     let node = new Node(value);
 
-    //Если уже есть нода
+    // Если уже есть нода
+    // TODO: Может ориентироваться на head?
     if (this.length === 0) {
       this.head = node;
     } else {
@@ -49,12 +61,19 @@ class LinkedList {
       this.head = node;
     }
 
-    //увеличиваем длину листа
+    // увеличиваем длину листа
     this.length++;
   }
 
   removeLast() {
     // если лист пустой
+
+    /** 
+     * TODO: переписать
+     * 1. проверяем head === null
+     * 2. head является одним элементом head.next === null то удаляем текущий head и length--
+     */
+
     if (this.length < 1) {
       return;
     }
@@ -67,24 +86,26 @@ class LinkedList {
       return;
     }
 
+    // TODO: снова let
     let current = this.head;
 
-    //смотрим на следующий элемент
-    while (current.next !== null) {
+    // смотрим на следующий элемент
+    // TODO: !current?.next одно и тоже что и current?.next != null или же current?.next == null
+    while (!current?.next) {
       // Если следующий следуюдего отсутствуют то удаляем связь
       if (current.next.next === null) {
-        //удаляем у последнего связь на предыдущего
-        current.next.prev = null;
+        // удаляем у последнего связь на предыдущего
+        current.next.prev = null; // TODO: ссылки на элемент нет, мусорщик соберет его, ненужный код
         current.next = null;
-        //не забываем длину укоротить
+        // не забываем длину укоротить
         this.length--;
-        return;
       }
-      current = current.next;
+      current = current.next; // здесь для меня сложность понять что current = null а null.next = undefined
     }
   }
 
   removeFirst() {
+    // TODO: смотри в removeLast
     if (this.length < 1) {
       return;
     }
@@ -96,15 +117,25 @@ class LinkedList {
       return;
     }
 
-    let current = this.head.next;
+    //  1    2    3    4    5
+    // head next
+    //      head
+    //    head.prev = null
+    this.head = this.head.next;
+    this.head.prev = null;
 
-    current.prev.next = null;
-    current.prev = null;
+    // let current = this.head.next;
 
-    this.head = current;
+    // current.prev.next = null;
+    // current.prev = null;
+
+    // this.head = current;
 
     this.length--;
   }
+
+  // TODO: remove(item) - item элемент который удаляем (первый, средний, последний)
+  // TODO: remove(index) (первый, средний, последний)
 
   render() {
     let current = this.head;
@@ -123,17 +154,8 @@ class LinkedList {
 //TESTS
 
 let list = new LinkedList();
-
-console.log("add values:");
-list.addFirst("1"); // 1
-list.addFirst("2"); // 2 1
-list.addLast("3"); // 2 1 3
-list.addLast("4"); // 2 1 3 4
-list.addFirst("5"); // 5 2 1 3 4
-list.render();
-
-console.log("remove first and last values:");
-list.removeLast(); // 5 2 1 3
-list.removeFirst(); // 2 1 3
-
+list.addFirst("1");
+list.addFirst("11");
+list.addFirst("111");
+list.removeLast();
 list.render();
