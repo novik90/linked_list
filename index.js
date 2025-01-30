@@ -1,6 +1,6 @@
 import LinkedList from "./LinkedList.js";
 
-let list = new LinkedList();
+const list = new LinkedList();
 
 console.log("add values:");
 list.addFirst("1"); // 1

@@ -1,4 +1,4 @@
-import Node from "./Node.js";
+import Node from './Node.js';
 
 export default class LinkedList {
   constructor() {
@@ -7,14 +7,14 @@ export default class LinkedList {
   }
 
   addLast(value) {
-    //Создаю новую ноду
-    let node = new Node(value);
+    // Создаю новую ноду
+    const node = new Node(value);
 
-    //Если лист пустой
+    // Если лист пустой
     if (this.length === 0) {
       this.head = node;
     } else {
-      //Если уже есть нода
+      // Если уже есть нода
       let current = this.head;
 
       while (current.next) {
@@ -26,15 +26,15 @@ export default class LinkedList {
       current.next.prev = current;
     }
 
-    //увеличиваем длину листа
-    this.length++;
+    // увеличиваем длину листа
+    this.length += 1;
   }
 
   addFirst(value) {
-    //Создаю новую ноду
-    let node = new Node(value);
+    // Создаю новую ноду
+    const node = new Node(value);
 
-    //Если уже есть нода
+    // Если уже есть нода
     if (this.length === 0) {
       this.head = node;
     } else {
@@ -43,8 +43,8 @@ export default class LinkedList {
       this.head = node;
     }
 
-    //увеличиваем длину листа
-    this.length++;
+    // увеличиваем длину листа
+    this.length += 1;
   }
 
   removeLast() {
@@ -63,15 +63,15 @@ export default class LinkedList {
 
     let current = this.head;
 
-    //смотрим на следующий элемент
+    // смотрим на следующий элемент
     while (current.next !== null) {
       // Если следующий следуюдего отсутствуют то удаляем связь
       if (current.next.next === null) {
-        //удаляем у последнего связь на предыдущего
+        // удаляем у последнего связь на предыдущего
         current.next.prev = null;
         current.next = null;
-        //не забываем длину укоротить
-        this.length--;
+        // не забываем длину укоротить
+        this.length -= 1;
         return;
       }
       current = current.next;
@@ -90,14 +90,14 @@ export default class LinkedList {
       return;
     }
 
-    let current = this.head.next;
+    const current = this.head.next;
 
     current.prev.next = null;
     current.prev = null;
 
     this.head = current;
 
-    this.length--;
+    this.length -= 1;
   }
 
   render() {
@@ -105,9 +105,9 @@ export default class LinkedList {
     console.log(`\x1b[31mprevious\x1b[0m | current | \x1b[34mnext\x1b[0m`);
     while (current !== null) {
       console.log(
-        `\x1b[31m${current.prev?.value || "-"}\x1b[0m | ${
+        `\x1b[31m${current.prev?.value || '-'}\x1b[0m | ${
           current.value
-        } | \x1b[34m${current.next?.value || "-"}\x1b[0m`
+        } | \x1b[34m${current.next?.value || '-'}\x1b[0m`
       );
       current = current.next;
     }
